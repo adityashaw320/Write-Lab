@@ -27,7 +27,7 @@ export class AuthService {
                return  userAccount;
             }
         } catch (error) {
-            console.log("Appwrite serive :: Create Acccount :: Error", error);
+            console.log("Appwrite serive :: Create account :: Error", error);
         }
     }
 

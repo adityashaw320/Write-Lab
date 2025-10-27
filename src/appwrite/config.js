@@ -89,32 +89,48 @@ export class Service {
         queries,
       });
     } catch (error) {
-        console.log("Appwrite service :: Get Post :: Error", error);
-        return false
+      console.log("Appwrite service :: Get Post :: Error", error);
+      return false;
     }
   }
 
-        // {File upload service}
+  // {File upload service}
 
-  async uploadFile(file){
+  async uploadFile(file) {
     try {
-        await this.bucket.createFile({
-            bucketId: appwriteBucketId,
-            fileId: ID.unique(),
-            file                      // file input object (from <input type="file" />)
-        })
+        return await this.bucket.createFile({
+        bucketId: appwriteBucketId,
+        fileId: ID.unique(),
+        file, // file input object (from <input type="file" />)
+      });
     } catch (error) {
-        console.log("Appwrite service :: uploadFile :: Error", error);
-        return false
+      console.log("Appwrite service :: upload File :: Error", error);
+      return false;
     }
   }
 
-  async deleteFile(){
+  async deleteFile() {
     try {
-        await this.bucket.deleteFile({})
+      await this.bucket.deleteFile({
+        bucketId: appwriteBucketId,
+        fileId
+      });
+      return true
     } catch (error) {
-        
+      console.log("Appwrite service :: Delete File :: Error", error);
+      return false;
     }
+  }
+
+  getFilePreview(fileId){
+   try {
+     return this.bucket.getFilePreview({
+         bucketId: appwriteBucketId,
+         fileId
+     })
+   } catch (error) {
+    console.log("Appwrite Service :: Get File Preview :: Error", error);
+   }
   }
 }
 
