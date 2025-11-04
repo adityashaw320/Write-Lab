@@ -1,5 +1,5 @@
 import { current } from '@reduxjs/toolkit';
-import conf from '../conf.js'
+import conf from '../conf/conf.js'
 import {Client, Account, ID} from 'appwrite'
 
 export class AuthService {
@@ -44,10 +44,13 @@ export class AuthService {
         try {
             return await this.account.get()
         } catch (error) {
-            console.log("Appwrite serive :: Get Current User :: Error", error);
-            
-        }
+         if (error.code === 401) {
+      console.log("User not logged in — please sign in.");
+    } else {
+      console.log("Appwrite serive :: Get Current User :: Error", error);
+    }
         return null;
+    }
     }
 
     async logout(){
